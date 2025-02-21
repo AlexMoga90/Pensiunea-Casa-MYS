@@ -15,7 +15,7 @@ public class Camera {
     private int numarCamera;
 
     @Column(nullable = false)
-    private String tipCamera; // Exemplu: Single, Double, Apartment
+    private String tipCamera;
 
     @Column(nullable = false)
     private double pretPeNoapte;
@@ -23,7 +23,35 @@ public class Camera {
     @Column(nullable = false)
     private boolean disponibila = true; // Default: Disponibilă
 
-    // Getters și Setters
+    @Column(length = 500)
+    private String descriere;
+
+    public Camera(int i, String dublaCuPatExtra, double v, boolean b, String s) {
+        this.numarCamera = i;
+        this.tipCamera = dublaCuPatExtra;
+        this.pretPeNoapte = v;
+        this.disponibila = b;
+        this.descriere = s;
+    }
+    public Camera() {
+        this.tipCamera = "Necunoscut";
+    }
+
+    public Camera(int numarCamera, String tipCamera, double pretPeNoapte, boolean disponibila) {
+        this.numarCamera = numarCamera;
+        this.tipCamera = tipCamera;
+        this.pretPeNoapte = pretPeNoapte;
+        this.disponibila = disponibila;
+    }
+
+    public String getDescriere() {
+        return descriere;
+    }
+
+    public void setDescriere(String descriere) {
+        this.descriere = descriere;
+    }
+
     public Long getId() {
         return id;
     }
@@ -45,6 +73,9 @@ public class Camera {
     }
 
     public void setTipCamera(String tipCamera) {
+        if (tipCamera == null || tipCamera.isEmpty()){
+            throw new IllegalArgumentException("tipul camerei nu poate fi gol");
+        }
         this.tipCamera = tipCamera;
     }
 
